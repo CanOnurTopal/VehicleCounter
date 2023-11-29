@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
     }
     std::ofstream ResultsFile(argv[2]);
     ResultsFile << "Vehicle Count:\n";
-    ResultsFile << std::to_string(vlogger.get_vehicle_count());
+    ResultsFile << std::to_string(vlogger.get_vehicle_count()) << "\n"; 
     ResultsFile << "Avg Calculation Speed in ms:\n";
     ResultsFile << std::to_string(avg_time);
     ResultsFile.close();
