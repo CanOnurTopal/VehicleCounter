@@ -13,7 +13,6 @@ add_executable(VehicleCounter
         utils.cpp
         objdetector/detector.cpp
         main.cpp
-        visualization/visualize.h
         vehiclelogger.cpp
         vehiclelogger.h
         vehicle.cpp
