@@ -2,11 +2,11 @@
 #include <opencv2/tracking.hpp>
 #include <iostream>
 
-Vehicle::Vehicle(cv::Mat& frame, const cv::Rect& loc): curr_loc_(loc), last_update_(0) {
+Vehicle::Vehicle(const cv::Mat& frame, const cv::Rect& loc): curr_loc_(loc), last_update_(0) {
     this->init_tracker(frame, loc);
 }
 
-bool Vehicle::track(cv::Mat& frame) {
+bool Vehicle::track(const cv::Mat& frame) {
     /*
     constexpr float TRACKING_SCORE_THRESHOLD = 0.6f;
     try { //try block to Circumvent OPENCV BUG with dnn trackers.
@@ -22,7 +22,7 @@ bool Vehicle::track(cv::Mat& frame) {
 
 }
 
-bool Vehicle::update_if_same(cv::Mat& frame, cv::Rect& new_loc, long long unsigned frame_count, bool reject_if_smaller) {
+bool Vehicle::update_if_same(const cv::Mat& frame, cv::Rect& new_loc, long long unsigned frame_count, bool reject_if_smaller) {
     constexpr float EQUALITY_THRESHOLD = 0.6f;
     if (rect_overlap_(curr_loc_, new_loc) > EQUALITY_THRESHOLD) {
         if (!(new_loc.x && 0 <= new_loc.width && new_loc.x + new_loc.width <= frame.cols && 0 <= new_loc.y && 0 <= new_loc.height && new_loc.y + new_loc.height <= frame.rows)) return true; //PREVENT OPENCV BUG
@@ -44,7 +44,7 @@ cv::Rect& Vehicle::get_loc() {
     return curr_loc_;
 }
 
-void Vehicle::init_tracker(cv::Mat& frame, const cv::Rect& loc) {
+void Vehicle::init_tracker(const cv::Mat& frame, const cv::Rect& loc) {
     CVTracker::Params params;
     tracker_ptr_ = CVTracker::create(params);
     tracker_ptr_->init(frame, loc);

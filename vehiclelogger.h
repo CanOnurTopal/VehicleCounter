@@ -12,19 +12,19 @@
 class VehicleLogger {
     public:
     VehicleLogger();
-    void update(cv::Mat& frame);
+    void update(const cv::Mat& frame);
     unsigned long long get_vehicle_count();
 
     std::list<Vehicle> active_vehicles_;
 
     private:
-    std::list<cv::Rect> detect(cv::Mat& frame);
+    std::list<cv::Rect> detect(const cv::Mat& frame);
     //increase frame_count_ without overflow
     void increase_frame_count(unsigned long long add = 1);
-    void add_vehicles(cv::Mat& frame, std::list<cv::Rect>& list);
-    bool detection_vehicle_update(cv::Mat& frame, cv::Rect& detection);
-    void run_tracking(cv::Mat& frame);
-    void run_detect_merge(cv::Mat& frame);
+    void add_vehicles(const cv::Mat& frame, std::list<cv::Rect>& list);
+    bool detection_vehicle_update(const cv::Mat& frame, cv::Rect& detection);
+    void run_tracking(const cv::Mat& frame);
+    void run_detect_merge(const cv::Mat& frame);
     void eliminate_multiples();
 
     unsigned long long count_;
