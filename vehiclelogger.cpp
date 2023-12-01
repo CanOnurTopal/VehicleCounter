@@ -2,7 +2,7 @@
 #include <limits>
 #include <algorithm>
 #include <iterator>
-#include "oneapi/tbb.h"
+#include "tbb/tbb.h"
 
 
 
@@ -76,7 +76,7 @@ void VehicleLogger::run_tracking(const cv::Mat& frame) {
         iters.push_back(it);
     }
     std::vector<std::list<Vehicle>::iterator> track_failed;
-    oneapi::tbb::parallel_for(size_t(0), iters.size(),
+    tbb::parallel_for(size_t(0), iters.size(),
         [&iters, frame, &track_failed](size_t i) {
             if(!iters[i]->track(frame)) {
                 track_failed.push_back(iters[i]);
@@ -99,7 +99,7 @@ void VehicleLogger::run_detect_merge(const cv::Mat& frame) {
     for (auto it = vehicles.begin(); it != vehicles.end(); ++it) {
         iters.push_back(it);
     }
-    oneapi::tbb::parallel_for(size_t(0), iters.size(),
+    tbb::parallel_for(size_t(0), iters.size(),
         [&iters, frame, &vehicles, this](size_t i) {
             auto& iter = iters[i];
             if(this->detection_vehicle_update(frame, *iter)) {
